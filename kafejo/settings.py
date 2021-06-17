@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from decouple import config
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'django_filters',
 
     #myapps
     'food',
@@ -48,6 +50,8 @@ INSTALLED_APPS = [
     'user',
     'review',
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -152,7 +156,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':
         [
             'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
+    'DEFAULT_FILTER_BACKENDS':
+        [
+            'django_filters.rest_framework.DjangoFilterBackend'
         ]
+
 }
 
 SIMPLE_JWT = {
@@ -180,3 +189,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=60),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+

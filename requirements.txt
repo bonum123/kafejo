@@ -3,6 +3,6 @@ djangorestframework
 pillow
 psycopg2-binary
 drf-yasg
-python-decouple
 djangorestframework-simplejwt
-
+python-decouple
+django-filter
