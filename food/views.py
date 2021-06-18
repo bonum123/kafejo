@@ -14,11 +14,11 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class FoodListView(generics.ListAPIView):
     queryset = Food.objects.all()
-    # queryset = Food.objects.select_related('category')
     serializer_class = serializers.FoodSerializer
     filters_backends = (filters.DjangoFilterBackend, )
     filterset_fields = ('title', 'price', 'category')
     pagination_class = StandardResultsSetPagination
+    permission_classes = (permissions.AllowAny, )
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
@@ -33,15 +33,20 @@ class FoodListView(generics.ListAPIView):
         return queryset
 
 
-
-
-
 class FoodDetailView(generics.RetrieveAPIView):
     """Endpoint for retrieve single post"""
     queryset = Food.objects.all()
     serializer_class = serializers.FoodDetailSerializer
 
 
+class FoodUpdateView(generics.UpdateAPIView):
+    queryset = Food.objects.all()
+    serializer_class = serializers.FoodSerializer
+    permission_classes = (permissions.IsAdminUser, )
+
+
+
 class CategoryView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
+    permission_classes = (permissions.AllowAny, )

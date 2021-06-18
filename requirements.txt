@@ -6,3 +6,4 @@ drf-yasg
 djangorestframework-simplejwt
 python-decouple
 django-filter
+

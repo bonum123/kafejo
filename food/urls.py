@@ -5,4 +5,6 @@ urlpatterns = [
     path('', views.FoodListView.as_view()),
     path('<int:pk>/', views.FoodDetailView.as_view()),
     path('categories/', views.CategoryView.as_view()),
-    ]
+    path('search/', views.FoodListView.as_view()),
+    path('update/<int:pk>/', views.FoodUpdateView.as_view()),
+]

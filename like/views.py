@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from like.models import Like, DisLike
 from rest_framework import serializers
+from . import serializers
 
 
 class LikeCreateView(generics.ListCreateAPIView):
