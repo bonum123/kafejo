@@ -39,11 +39,22 @@ class FoodDetailView(generics.RetrieveAPIView):
     serializer_class = serializers.FoodDetailSerializer
 
 
+class FoodCreateView(generics.CreateAPIView):
+    queryset = Food.objects.all()
+    serializer_class = serializers.FoodDetailSerializer
+    permission_classes = (permissions.IsAdminUser, )
+
+
 class FoodUpdateView(generics.UpdateAPIView):
     queryset = Food.objects.all()
     serializer_class = serializers.FoodSerializer
     permission_classes = (permissions.IsAdminUser, )
 
+
+class FoodDestroyView(generics.DestroyAPIView):
+    queryset = Food.objects.all()
+    serializer_class = serializers.FoodSerializer
+    permission_classes = (permissions.IsAdminUser, )
 
 
 class CategoryView(generics.ListAPIView):

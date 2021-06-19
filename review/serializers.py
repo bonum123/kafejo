@@ -1,7 +1,7 @@
 from rest_framework import serializers
-
 from food.models import Food
 from review.models import Review, Mark, Marks
+from user.models import CustomUser
 
 
 class MarkSerializer(serializers.ModelSerializer):
@@ -12,12 +12,10 @@ class MarkSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
-    food = serializers.ChoiceField(choices=Food.objects.all())
-    mark = serializers.ChoiceField(choices=Marks.choose_your_mark)
 
     class Meta:
         model = Review
-        fields = ['id', 'body', 'food', 'owner', 'mark']
+        fields = ['id', 'body', 'food', 'owner']
 
     def create(self, validated_data):
         print(validated_data)
@@ -37,4 +35,11 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['body', 'owner', 'food']
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        print(representation)
+        representation['owner'] = f'{CustomUser.objects.get(email=instance.owner)}'
+        representation['marks'] = MarkSerializer(Mark.objects.filter(food=instance.id), many=True).data
+        return representation

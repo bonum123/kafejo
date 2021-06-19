@@ -20,7 +20,7 @@ class Marks(models.Model):
 
 class Review(models.Model):
     body = models.TextField()
-    food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='review')
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
